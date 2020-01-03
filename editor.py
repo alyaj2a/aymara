@@ -93,18 +93,21 @@ monitor.pack(side="left")
 root.config(menu=menubar)
 # Finalmente bucle de la apliación
 
-def last_word(event=None):
+def word_proc(event=None):
 	contenido = texto.get(1.0,'end-1c')
 	lista_texto = contenido.split()
 	last = lista_texto[-1] 
-	print(last)
-        
+        print(BKT.query(str(last),1))
+        print
+    
+     
 
-root.bind("<space>", last_word)
+root.bind("<space>", word_proc)
 
 BKT = BKTree(levenshtein,
             dict_words('aymara'))
-print(BKT.query("Achila",1))
-
+#print(BKT.query("Achila",1))
+#word_word = word_proc
+#print(word_word)
 
 root.mainloop()
