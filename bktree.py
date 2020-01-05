@@ -1,38 +1,9 @@
-"""
-
-This module implements Burkhard-Keller Trees (bk-tree).  bk-trees
-allow fast lookup of words that lie within a specified distance of a
-query word.  For example, this might be used by a spell checker to
-find near matches to a mispelled word.
-
-The implementation is based on the description in this article:
-
-http://blog.notdot.net/2007/4/Damn-Cool-Algorithms-Part-1-BK-Trees
-
-Licensed under the PSF license: http://www.python.org/psf/license/
-
-- Adam Hupp <adam@hupp.org>
-
-"""
 from itertools import imap, ifilter
 
 
 class BKTree:
     def __init__(self, distfn, words):
-        """
-        Create a new BK-tree from the given distance function and
-        words.
-        
-        Arguments:
 
-        distfn: a binary function that returns the distance between
-        two words.  Return value is a non-negative integer.  the
-        distance function must be a metric space.
-        
-        words: an iterable.  produces values that can be passed to
-        distfn
-        
-        """
         self.distfn = distfn
 
         it = iter(words)
@@ -51,21 +22,6 @@ class BKTree:
             children[d] = (word, {})
 
     def query(self, word, n):
-        """
-        Return all words in the tree that are within a distance of `n'
-        from `word`.  
-
-        Arguments:
-        
-        word: a word to query on
-
-        n: a non-negative integer that specifies the allowed distance
-        from the query word.  
-        
-        Return value is a list of tuples (distance, word), sorted in
-        ascending order of distance.
-        
-        """
         def rec(parent):
             pword, children = parent
             d = self.distfn(word, pword)
@@ -85,20 +41,7 @@ class BKTree:
 
 
 def brute_query(word, words, distfn, n):
-    """A brute force distance query
 
-    Arguments:
-
-    word: the word to query for
-
-    words: a iterable that produces words to test
-
-    distfn: a binary function that returns the distance between a
-    `word' and an item in `words'.
-
-    n: an integer that specifies the distance of a matching word
-    
-    """
     return [i for i in words
             if distfn(i, word) <= n]
 
@@ -111,7 +54,6 @@ def maxdepth(tree, count=0):
         return c
 
 
-# http://en.wikibooks.org/wiki/Algorithm_implementation/Strings/Levenshtein_distance#Python
 def levenshtein(s, t):
     m, n = len(s), len(t)
     d = [range(n+1)]
@@ -129,7 +71,7 @@ def levenshtein(s, t):
 
 
 def dict_words(dictfile="aymara"):
-    "Return an iterator that produces words in the given dictionary."
+
     return ifilter(len,
                    imap(str.strip,
                         open(dictfile)))
@@ -151,8 +93,3 @@ if __name__ == "__main__":
 
     print (tree.query("Achu", 0))
     
-#     dist = 1
-#     for i in ["book", "cat", "backlash", "scandal"]:
-#         w = set(tree.query(i, dist)) - set([i]) 
-#         print "words within %d of %s: %r" % (dist, i, w)
-
