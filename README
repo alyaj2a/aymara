@@ -1,7 +1,17 @@
-Implementation of Burkhard-Keller trees in various languages.  These
-allow fast lookup of words within a certain distance of a query word.
- 
-The implementation is based on the description in this article:
- 
-http://blog.notdot.net/2007/4/Damn-Cool-Algorithms-Part-1-BK-Trees
+Requerimientos:
+
+Libreria de Python2 Tkinter
+
+MODO DE USO:
+
+1. Instalar Tkinter
+2. Ejecutar el archivo main.py
+	
+		$ python main.py
+
+3. Escribir palabras, tenemos palabras en nuestro archivo "aymara".
+
+4. Mientras vaya escribiendo, las palabras mal escritas se iran marcando de color rojo si estan mal escritas
+
+5. Al hacer doble clic en la palabra mal escrita en la parte de abajo le apareceran sugerencias de correcciones, al hacer clic en una de esas palabras se corregira con esa palabra.
 
